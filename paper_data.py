@@ -38,8 +38,8 @@ def plot_data_sife():
     #ax.arrow(-4.81,-5.4,arrowdx,arrowdy,fc='r',ec='r',head_width=arrowhw,head_length=arrowhl)
     #ax.add_patch(plt.Rectangle((-5.76-barwidth/2.,-5.4),barwidth,-5.2+5.4,color='orange'))
     #ax.arrow(-5.76,-5.4,arrowdx,arrowdy,fc='r',ec='r',head_width=arrowhw,head_length=arrowhl)
-    ax.set_xlabel(r'[Fe/H]',fontsize=16)
-    ax.set_ylabel(r'[Si/H]',fontsize=16)
+    ax.set_xlabel(r'[Fe/H]',fontsize=20)
+    ax.set_ylabel(r'[Si/H]',fontsize=20)
     return fig,ax
 
 def plot_data_dtranssih():
@@ -77,8 +77,8 @@ def plot_data_dtranssih():
     for ix in indices:
         ax.arrow(sih[ix],dtrans[ix],arrowdy,arrowdx,fc=arrowcol,ec=arrowcol,head_width=arrowhw,head_length=arrowhl)
 
-    ax.set_xlabel(r'[Si/H]',fontsize=16)
-    ax.set_ylabel(r'$D_{trans}$',fontsize=16)
+    ax.set_xlabel(r'[Si/H]',fontsize=20)
+    ax.set_ylabel(r'$D_{trans}$',fontsize=20)
     return fig,ax
 
 plt.clf()
