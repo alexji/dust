@@ -20,10 +20,15 @@ def plot_data_sife():
     # create figure
     plt.clf()
     fig = plt.figure(figsize=(7.5,7.5))
-    
     ax = plt.subplot(111)
-    ax.scatter(x, y, c='k', s=15.0, facecolors='none')
-    
+    ax.scatter(x, y, c='k', s=25.0, facecolors='none')
+
+    # special symbols for 5 interesting stars
+    special1 = [15,18,22,25] #HE0107, HE0557, HE1327, HE1424
+    special2 = [27] #SDSSJ1029151
+    ax.scatter(x[special1],y[special1], s = 50, marker='s', c='black')
+    ax.scatter(x[special2],y[special2], s = 50, marker='D', c='black')
+
     # plot arrows
     arrowdx = 0.0
     arrowdy = -0.1
@@ -31,6 +36,11 @@ def plot_data_sife():
     arrowhl = .08
     for ix in ulindex:
         ax.arrow(x[ix],y[ix],arrowdx,arrowdy,fc='k',ec='k',head_width=arrowhw,head_length=arrowhl)
+
+    # Rob's DLA
+    ax.scatter([-3.09],[-4.35], s=120, marker='H', c='blue', edgecolors='blue')
+    ax.arrow(  -3.09,-4.35,arrowdx*1.5,arrowdy*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
+    ax.arrow(  -3.09,-4.35,arrowdy*1.5,arrowdx*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
     
     # plot upper limit bars for HE0557 and HE1327
     #barwidth = .02
@@ -38,8 +48,9 @@ def plot_data_sife():
     #ax.arrow(-4.81,-5.4,arrowdx,arrowdy,fc='r',ec='r',head_width=arrowhw,head_length=arrowhl)
     #ax.add_patch(plt.Rectangle((-5.76-barwidth/2.,-5.4),barwidth,-5.2+5.4,color='orange'))
     #ax.arrow(-5.76,-5.4,arrowdx,arrowdy,fc='r',ec='r',head_width=arrowhw,head_length=arrowhl)
-    ax.set_xlabel(r'[Fe/H]',fontsize=20)
-    ax.set_ylabel(r'[Si/H]',fontsize=20)
+    ax.tick_params(axis='both',which='major',labelsize=14)
+    ax.set_xlabel(r'[Fe/H]',fontsize=16)
+    ax.set_ylabel(r'[Si/H]',fontsize=16)
     return fig,ax
 
 def plot_data_dtranssih():
@@ -55,7 +66,7 @@ def plot_data_dtranssih():
     sih = sih[mask]; ulsi = ulsi[mask]
     dtrans = dtrans[mask]; dtransul = dtransul[mask]
     dtranslo = dtranslo[mask]; dtranshi = dtranshi[mask]
-    
+
     fig = plt.figure(figsize=(7.5,7.5))
     ax = fig.add_subplot(111)
 
@@ -64,8 +75,13 @@ def plot_data_dtranssih():
     ax.scatter(sih[mask],dtrans[mask],marker='D',c='black',s=25)
     ## Just C or O
     mask = np.isfinite(dtranslo)
-    ax.scatter(sih[mask],dtrans[mask],marker='o',facecolors='none',edgecolors='blue',s=16)
+    ax.scatter(sih[mask],dtrans[mask],marker='o',facecolors='none',edgecolors='blue',s=25)
     ax.vlines(sih[mask],dtranslo[mask],dtranshi[mask],color='blue',lw=.2)
+    # special symbols for 5 interesting stars
+    special1 = [13,15,17,20] #HE0107, HE0557, HE1327, HE1424
+    special2 = [21] #SDSSJ1029151
+    ax.scatter(sih[special1],dtrans[special1], s = 50, marker='s', c='black')
+    ax.scatter(sih[special2],dtrans[special2], s = 50, marker='D', c='black')
     ## Add upper limits
     arrowdx = 0.0; arrowdy = -0.1
     arrowhw = .04; arrowhl = .08
@@ -76,9 +92,14 @@ def plot_data_dtranssih():
     indices = np.where(ulsi == 1)[0]
     for ix in indices:
         ax.arrow(sih[ix],dtrans[ix],arrowdy,arrowdx,fc=arrowcol,ec=arrowcol,head_width=arrowhw,head_length=arrowhl)
+    # Rob's DLA
+    ax.scatter([-4.35],[-3.36], s=120, marker='H', c='blue', edgecolors='blue')
+    ax.arrow(  -4.35,-3.36,arrowdx*1.5,arrowdy*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
+    ax.arrow(  -4.35,-3.36,arrowdy*1.5,arrowdx*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
 
-    ax.set_xlabel(r'[Si/H]',fontsize=20)
-    ax.set_ylabel(r'$D_{trans}$',fontsize=20)
+    ax.tick_params(axis='both',which='major',labelsize=14)
+    ax.set_xlabel(r'[Si/H]',fontsize=16)
+    ax.set_ylabel(r'$D_{trans}$',fontsize=16)
     return fig,ax
 
 plt.clf()
@@ -93,7 +114,8 @@ for stdsih in stdsihcrit:
     ax.plot([-6.0,-3.0],[stdsih,stdsih],'g--')
 for x55sih in x55sihcrit:
     ax.plot([-6.0,-3.0],[x55sih,x55sih],'r--')
-ax.add_patch(plt.Polygon([[-6,-6],[-3,-3],[-3,-3+.4],[-6,-6+.4]],closed=True,alpha=.2,color='cyan'))
+#ax.add_patch(plt.Polygon([[-6,-6],[-3,-3],[-3,-3+.4],[-6,-6+.4]],closed=True,alpha=.2,color='cyan'))
+ax.plot([-6.0,-3.0],[-6.0,-3.0],'k-',lw=.1)
 
 ax.set_xlim(-6.0,-3.0)
 ax.set_ylim(-6.0,-2.0)
