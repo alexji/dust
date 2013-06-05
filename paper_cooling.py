@@ -33,7 +33,7 @@ if __name__ == "__main__":
     Ldarr2 = np.zeros((len(narr),len(Tarr)))
 
     fig = plt.figure(1,figsize=(7.5,7.5))
-    plt.plot(narr,Gamma_ad(narr,1000),'k',lw=2)
+    plt.plot(narr,Gamma_ad(narr,1000),'k',lw=1.5)
     plotstyle=['b','g','r','c','m','y','k','b']
     plotstyle1=[x+'' for x in plotstyle]
     plotstyle2=[x+':' for x in plotstyle]
@@ -44,8 +44,8 @@ if __name__ == "__main__":
             Tdarr2[j,i],Hdarr2[j,i],Ldarr2[j,i] = find_Td(n,T,S,kappafn)
 
     for i,T in enumerate(Tarr):
-        linelist[i], = plt.plot(narr, D*Ldarr[:,i],plotstyle1[i])
-        plt.plot(narr, D*Ldarr2[:,i],plotstyle2[i])
+        linelist[i], = plt.plot(narr, D*Ldarr[:,i],plotstyle1[i],lw=2)
+        plt.plot(narr, D*Ldarr2[:,i],plotstyle2[i],lw=2)
 
     plt.xlabel(r'n [cm $^{-3}$]',fontsize=16)
     plt.ylabel(r'$\Lambda_d$ [ergs s$^{-1}$ cm$^{-3}$]',fontsize=16)
