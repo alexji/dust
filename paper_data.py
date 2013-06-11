@@ -41,6 +41,8 @@ def plot_data_sife():
     ax.scatter([-3.09],[-4.35], s=120, marker='H', c='blue', edgecolors='blue')
     ax.arrow(  -3.09,-4.35,arrowdx*1.5,arrowdy*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
     ax.arrow(  -3.09,-4.35,arrowdy*1.5,arrowdx*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
+
+    plt.errorbar([-5.5],[-2.6], xerr=0.1, yerr=0.15, color='k')
     
     # plot upper limit bars for HE0557 and HE1327
     #barwidth = .02

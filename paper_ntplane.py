@@ -49,7 +49,7 @@ _Tarr = 10.**np.linspace(1.5,3.5,200)
 ##                 logTdarr[i,j] = np.log10(Td)
 ##     np.save("DATA/"+dustmodel+"_ntplane.npy",(logDcritarr,logTdarr))
 
-def plot_ntplane(dustmodel,dust_opacity=False):
+def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     if dust_opacity:
         Dcrit,Td = np.load("DATA/"+dustmodel+"_ntplane_dustopacity.npy")
         #mask = Dcrit > -5
@@ -61,12 +61,16 @@ def plot_ntplane(dustmodel,dust_opacity=False):
         Dcrit[mask] = np.nan
         Td[mask] = np.nan
 
-    fig = plt.figure(figsize=(8.5,7.5))
+    if make_colorbar:
+        fig = plt.figure(figsize=(8.5,7.5))
+    else:
+        fig = plt.figure(figsize=(7.5,7.5))
     img = plt.imshow(-1*Dcrit.transpose(),extent=(0,20,1.5,3.5),origin='lower',aspect=8.0)
     img.set_clim(3,9)
-    cbar = plt.colorbar(shrink=0.75,ticks=np.arange(3,10))#,ticks=[-15,-12,-9,-6,-3,0,3,6,8])
-    cbar.ax.set_yticklabels([r'$10^{-'+str(x)+'}$' for x in np.arange(3,10)])
-    cbar.ax.tick_params(axis='y',which='major',labelsize=16)
+    if make_colorbar:
+        cbar = plt.colorbar(shrink=0.75,ticks=np.arange(3,10))
+        cbar.ax.set_yticklabels([r'$10^{-'+str(x)+'}$' for x in np.arange(3,10)])
+        cbar.ax.tick_params(axis='y',which='major',labelsize=16)
     plt.plot([0,20],[np.log10(50),np.log10(50)],'k--')
     plt.plot([0,20],[np.log10(1500),np.log10(1500)],'k--')
     plt.plot([0,20],2./3+jeans(np.array([0.,20.])),'k--')
@@ -79,6 +83,10 @@ def plot_ntplane(dustmodel,dust_opacity=False):
     #plt.title(r'-log $\mathcal{D}_{crit}$ for '+dustmodel)
     plt.xlim((4,18))
     plt.ylim((1.5,3.5))
+    if dustmodel[0:4]=="std_":
+        plt.gca().text(14,1.6,"standard",fontsize=16)
+    elif dustmodel[0:5]=="x5.5_":
+        plt.gca().text(14,1.6,"shock",fontsize=16)
     if dust_opacity:
         plt.savefig("PLOTS/paper_"+dustmodel+"_Dcritplane_dustopacity.pdf",bbox_inches='tight')
     else:
@@ -86,7 +94,8 @@ def plot_ntplane(dustmodel,dust_opacity=False):
 
     fig = plt.figure(figsize=(8.5,7.5))
     plt.imshow(Td.transpose(),extent=(0,20,1.5,3.5),origin='lower',aspect=8.0)
-    plt.colorbar(shrink=0.75)
+    if make_colorbar:
+        plt.colorbar(shrink=0.75)
     plt.plot([0,20],[np.log10(50),np.log10(50)],'k--')
     plt.plot([0,20],[np.log10(1500),np.log10(1500)],'k--')
     plt.plot([0,20],2./3+jeans(np.array([0.,20.])),'k--')
@@ -98,6 +107,7 @@ def plot_ntplane(dustmodel,dust_opacity=False):
     plt.title(r'log $T_d$ for '+dustmodel)
     plt.xlim((0,20))
     plt.ylim((1.5,3.5))
+
     if dust_opacity:
         plt.savefig("PLOTS/paper_"+dustmodel+"_Tdplane_dustopacity.pdf",bbox_inches='tight')
     else:
@@ -109,18 +119,19 @@ if __name__ == "__main__":
     a) ignore dust opacity when calculating optically thick gas
     b) pick multiple D, find when you break adiabatic cooling
     """
-    dustmodels = ['x5.5_UM-ND-20', 'std_UM-ND-20',
-                  'x5.5_UM-D-20',  'std_UM-D-20',
-                  'x5.5_UM-ND-170','std_UM-ND-170',
-                  'x5.5_UM-D-170', 'std_UM-D-170',
-                  'x5.5_M-D-20',   'std_M-D-20',
-                  'x5.5_M-ND-20',  'std_M-ND-20',
-                  'x5.5_M-D-170',  'std_M-D-170',
-                  'x5.5_M-ND-170', 'std_M-ND-170',
-                  'x5.5_SOIF06-CCSN','std_SOIF06-CCSN',
-                  'x5.5_SOIF06-PISN','std_SOIF06-PISN',
-                  'x5.5_Caff20','std_Caff20',
-                  'x5.5_Caff35','std_Caff35']
+##     dustmodels = ['x5.5_UM-ND-20', 'std_UM-ND-20',
+##                   'x5.5_UM-D-20',  'std_UM-D-20',
+##                   'x5.5_UM-ND-170','std_UM-ND-170',
+##                   'x5.5_UM-D-170', 'std_UM-D-170',
+##                   'x5.5_M-D-20',   'std_M-D-20',
+##                   'x5.5_M-ND-20',  'std_M-ND-20',
+##                   'x5.5_M-D-170',  'std_M-D-170',
+##                   'x5.5_M-ND-170', 'std_M-ND-170']#,
+##                   'x5.5_SOIF06-CCSN','std_SOIF06-CCSN',
+##                   'x5.5_SOIF06-PISN','std_SOIF06-PISN',
+##                   'x5.5_Caff20','std_Caff20',
+##                   'x5.5_Caff35','std_Caff35']
+    dustmodels = ['x5.5_UM-ND-20', 'std_UM-ND-20']
 
     wavelen,lw = get_wavelen()
     Tcmb = 50
