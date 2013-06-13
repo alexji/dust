@@ -77,6 +77,8 @@ def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     plt.plot([0,20],jeans(np.array([0.,20.])),'k--')
     plt.plot([0,20],opacity(np.array([0.,20.])),'k--')
     plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-6),'k--')
+    #plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-7),'k--')
+    #plt.plot([0,20],[-1.7,4.0],'k--')
     plt.xlabel(r'log n [cm$^{-3}$]',fontsize=16)
     plt.ylabel(r'log T [K]',fontsize=16)
     plt.gca().tick_params(axis='both',which='major',labelsize=16)
@@ -102,11 +104,12 @@ def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     plt.plot([0,20],jeans(np.array([0.,20.])),'k--')
     plt.plot([0,20],opacity(np.array([0.,20.])),'k--')
     plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-6),'k--')
+    #plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-7),'k--')
     plt.xlabel(r'log $n$ [cm$^{-3}$]')
     plt.ylabel(r'log $T$ [K]')
     plt.title(r'log $T_d$ for '+dustmodel)
-    plt.xlim((0,20))
-    plt.ylim((1.5,3.5))
+    plt.xlim((12,20))
+    plt.ylim((1.7,3.5))
 
     if dust_opacity:
         plt.savefig("PLOTS/paper_"+dustmodel+"_Tdplane_dustopacity.pdf",bbox_inches='tight')

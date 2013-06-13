@@ -8,9 +8,11 @@ def plot_data_sife():
     # load data
     #data = asciitable.read("sih_data.csv",delimiter=',')
     data = asciitable.read("DATA/lowfe_sample.csv",delimiter=',')
-    data = data[data['feh'] <= -3.5]
-    data['sih'][18] = -4.85
-    data['sih'][22] = -5.2
+    #data = data[data['feh'] <= -3.5]
+    data['sih'][15] = -5.5  ##HE0107
+    data['sih'][18] = -4.85 ##HE0557
+    data['sih'][22] = -5.2  ##HE1327
+    data['ulsi'][15] = 1
     data['ulsi'][18] = 0
     data['ulsi'][22] = 1
     x = data['feh']
@@ -41,6 +43,8 @@ def plot_data_sife():
     ax.scatter([-3.09],[-4.35], s=120, marker='H', c='blue', edgecolors='blue')
     ax.arrow(  -3.09,-4.35,arrowdx*1.5,arrowdy*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
     ax.arrow(  -3.09,-4.35,arrowdy*1.5,arrowdx*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
+    # Other DLAs from Ryan Cooke et al 2011
+    ax.scatter([-3.04,-3.18,-3.45],[-2.65,-2.86,-2.75], s=120, marker='H', c='blue', edgecolors='blue')
 
     plt.errorbar([-5.5],[-2.6], xerr=0.1, yerr=0.15, color='k')
     
@@ -57,11 +61,14 @@ def plot_data_sife():
 
 def plot_data_dtranssih():
     data = asciitable.read("DATA/lowfe_sample.csv",delimiter=',')
-    data = data[data['feh'] <= -3.5]
-    data['sih'][18] = -4.85
-    data['sih'][22] = -5.2
+    #data = data[data['feh'] <= -3.5]
+    data['sih'][15] = -5.5  ##HE0107
+    data['sih'][18] = -4.85 ##HE0557
+    data['sih'][22] = -5.2  ##HE1327
+    data['ulsi'][15] = 1
     data['ulsi'][18] = 0
     data['ulsi'][22] = 1
+    data['oh'][18] = 2.3-4.73
     dtrans, dtranslo, dtranshi, dtransul = calc_dtrans(data)
     sih = data['sih']; ulsi = data['ulsi']
     mask = np.isfinite(sih)
@@ -77,8 +84,8 @@ def plot_data_dtranssih():
     ax.scatter(sih[mask],dtrans[mask],marker='D',c='black',s=25)
     ## Just C or O
     mask = np.isfinite(dtranslo)
-    ax.scatter(sih[mask],dtrans[mask],marker='o',facecolors='none',edgecolors='blue',s=25)
-    ax.vlines(sih[mask],dtranslo[mask],dtranshi[mask],color='blue',lw=.2)
+    ax.scatter(sih[mask],dtrans[mask],marker='o',facecolors='none',edgecolors='red',s=25)
+    ax.vlines(sih[mask],dtranslo[mask],dtranshi[mask],color='red',lw=.2)
     # special symbols for 5 interesting stars
     special1 = [13,15,17,20] #HE0107, HE0557, HE1327, HE1424
     special2 = [21] #SDSSJ1029151
@@ -98,6 +105,8 @@ def plot_data_dtranssih():
     ax.scatter([-4.35],[-3.36], s=120, marker='H', c='blue', edgecolors='blue')
     ax.arrow(  -4.35,-3.36,arrowdx*1.5,arrowdy*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
     ax.arrow(  -4.35,-3.36,arrowdy*1.5,arrowdx*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
+    # Other DLAs from Ryan Cooke et al 2011
+    ax.scatter([-2.65,-2.86,-2.75],[-1.45,-2.54,-2.60], s=120, marker='H', c='blue', edgecolors='blue')
 
     ax.tick_params(axis='both',which='major',labelsize=14)
     ax.set_xlabel(r'[Si/H]',fontsize=16)
