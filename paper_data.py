@@ -9,12 +9,12 @@ def plot_data_sife():
     #data = asciitable.read("sih_data.csv",delimiter=',')
     data = asciitable.read("DATA/lowfe_sample.csv",delimiter=',')
     #data = data[data['feh'] <= -3.5]
-    data['sih'][15] = -5.5  ##HE0107
-    data['sih'][18] = -4.85 ##HE0557
-    data['sih'][22] = -5.2  ##HE1327
-    data['ulsi'][15] = 1
-    data['ulsi'][18] = 0
-    data['ulsi'][22] = 1
+##     data['sih'][15] = -5.5  ##HE0107
+##     data['sih'][18] = -4.85 ##HE0557
+##     data['sih'][22] = -5.2  ##HE1327
+##     data['ulsi'][15] = 1
+##     data['ulsi'][18] = 0
+##     data['ulsi'][22] = 1
     x = data['feh']
     y = data['sih']
     ulindex = np.where(data['ulsi'] == 1)[0]
@@ -26,10 +26,12 @@ def plot_data_sife():
     ax.scatter(x, y, c='k', s=25.0, facecolors='none')
 
     # special symbols for 5 interesting stars
-    special1 = [15,18,22,25] #HE0107, HE0557, HE1327, HE1424
+    special1 = [15,18,22] #HE0107, HE0557, HE1327
     special2 = [27] #SDSSJ1029151
+    special3 = [25] #HE1424
     ax.scatter(x[special1],y[special1], s = 50, marker='s', c='black')
     ax.scatter(x[special2],y[special2], s = 50, marker='D', c='black')
+    ax.scatter(x[special3],y[special3], s = 100, marker='p', c='black')
 
     # plot arrows
     arrowdx = 0.0
@@ -62,13 +64,13 @@ def plot_data_sife():
 def plot_data_dtranssih():
     data = asciitable.read("DATA/lowfe_sample.csv",delimiter=',')
     #data = data[data['feh'] <= -3.5]
-    data['sih'][15] = -5.5  ##HE0107
-    data['sih'][18] = -4.85 ##HE0557
-    data['sih'][22] = -5.2  ##HE1327
-    data['ulsi'][15] = 1
-    data['ulsi'][18] = 0
-    data['ulsi'][22] = 1
-    data['oh'][18] = 2.3-4.73
+##     data['sih'][15] = -5.5  ##HE0107
+##     data['sih'][18] = -4.85 ##HE0557
+##     data['sih'][22] = -5.2  ##HE1327
+##     data['ulsi'][15] = 1
+##     data['ulsi'][18] = 0
+##     data['ulsi'][22] = 1
+##     data['oh'][18] = 2.3-4.73
     dtrans, dtranslo, dtranshi, dtransul = calc_dtrans(data)
     sih = data['sih']; ulsi = data['ulsi']
     mask = np.isfinite(sih)
@@ -81,26 +83,27 @@ def plot_data_dtranssih():
 
     ## Both C and O
     mask = np.isnan(dtranslo)
-    ax.scatter(sih[mask],dtrans[mask],marker='D',c='black',s=25)
+    ax.scatter(sih[mask],dtrans[mask],marker='o',facecolors='none',edgecolors='black',s=25)
     ## Just C or O
     mask = np.isfinite(dtranslo)
     ax.scatter(sih[mask],dtrans[mask],marker='o',facecolors='none',edgecolors='red',s=25)
     ax.vlines(sih[mask],dtranslo[mask],dtranshi[mask],color='red',lw=.2)
     # special symbols for 5 interesting stars
-    special1 = [13,15,17,20] #HE0107, HE0557, HE1327, HE1424
+    special1 = [13,15,17] #HE0107, HE0557, HE1327
     special2 = [21] #SDSSJ1029151
+    special3 = [20] #HE1424
     ax.scatter(sih[special1],dtrans[special1], s = 50, marker='s', c='black')
-    ax.scatter(sih[special2],dtrans[special2], s = 50, marker='D', c='black')
+    ax.scatter(sih[special2],dtrans[special2], s = 50, marker='D', c='k', edgecolors='k')
+    ax.scatter(sih[special3],dtrans[special3], s = 100, marker='p', c='k',edgecolors='k')
     ## Add upper limits
     arrowdx = 0.0; arrowdy = -0.1
     arrowhw = .04; arrowhl = .08
-    arrowcol = 'k'
     indices = np.where(dtransul == 1)[0]
     for ix in indices:
-        ax.arrow(sih[ix],dtrans[ix],arrowdx,arrowdy,fc=arrowcol,ec=arrowcol,head_width=arrowhw,head_length=arrowhl)
+        ax.arrow(sih[ix],dtrans[ix],arrowdx,arrowdy,fc='k',ec='k',head_width=arrowhw,head_length=arrowhl)
     indices = np.where(ulsi == 1)[0]
     for ix in indices:
-        ax.arrow(sih[ix],dtrans[ix],arrowdy,arrowdx,fc=arrowcol,ec=arrowcol,head_width=arrowhw,head_length=arrowhl)
+        ax.arrow(sih[ix],dtrans[ix],arrowdy,arrowdx,fc='k',ec='k',head_width=arrowhw,head_length=arrowhl)
     # Rob's DLA
     ax.scatter([-4.35],[-3.36], s=120, marker='H', c='blue', edgecolors='blue')
     ax.arrow(  -4.35,-3.36,arrowdx*1.5,arrowdy*1.5,fc='b',ec='b',head_width=arrowhw,head_length=arrowhl)
