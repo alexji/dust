@@ -74,10 +74,10 @@ def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     plt.plot([0,20],[np.log10(50),np.log10(50)],'k--')
     plt.plot([0,20],[np.log10(1500),np.log10(1500)],'k--')
     plt.plot([0,20],2./3+jeans(np.array([0.,20.])),'k--')
-    plt.plot([0,20],jeans(np.array([0.,20.])),'k--')
-    plt.plot([0,20],opacity(np.array([0.,20.])),'k--')
-    plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-6),'k--')
-    #plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-7),'k--')
+    #plt.plot([0,20],jeans(np.array([0.,20.])),'k--')
+    plt.plot([0,20],opacity(np.array([0.,20.])),'k-.')
+    #plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-6),'k:')
+    plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-7),'k:')
     #plt.plot([0,20],[-1.7,4.0],'k--')
     plt.xlabel(r'log n [cm$^{-3}$]',fontsize=16)
     plt.ylabel(r'log T [K]',fontsize=16)
@@ -101,10 +101,10 @@ def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     plt.plot([0,20],[np.log10(50),np.log10(50)],'k--')
     plt.plot([0,20],[np.log10(1500),np.log10(1500)],'k--')
     plt.plot([0,20],2./3+jeans(np.array([0.,20.])),'k--')
-    plt.plot([0,20],jeans(np.array([0.,20.])),'k--')
-    plt.plot([0,20],opacity(np.array([0.,20.])),'k--')
-    plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-6),'k--')
-    #plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-7),'k--')
+    #plt.plot([0,20],jeans(np.array([0.,20.])),'k--')
+    plt.plot([0,20],opacity(np.array([0.,20.])),'k-.')
+    #plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-6),'k:')
+    plt.plot([0,20],dustcooling(np.array([0.,20.]),np.log10(S),-7),'k:')
     plt.xlabel(r'log $n$ [cm$^{-3}$]')
     plt.ylabel(r'log $T$ [K]')
     plt.title(r'log $T_d$ for '+dustmodel)
@@ -129,7 +129,7 @@ if __name__ == "__main__":
 ##                   'x5.5_M-D-20',   'std_M-D-20',
 ##                   'x5.5_M-ND-20',  'std_M-ND-20',
 ##                   'x5.5_M-D-170',  'std_M-D-170',
-##                   'x5.5_M-ND-170', 'std_M-ND-170']#,
+##                   'x5.5_M-ND-170', 'std_M-ND-170']
 ##                   'x5.5_SOIF06-CCSN','std_SOIF06-CCSN',
 ##                   'x5.5_SOIF06-PISN','std_SOIF06-PISN',
 ##                   'x5.5_Caff20','std_Caff20',
