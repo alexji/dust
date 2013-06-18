@@ -113,6 +113,7 @@ if __name__ == "__main__":
     plt.yticks((-7.0,-7.5,-8.0,-8.5))
     ax.set_xlim((ind[0]-.5,ind[N-1]+.5))
     ax.invert_yaxis()
+    plt.xlabel(r'Dust Models')
 
     for ax in fig.get_axes():
         ax.tick_params(axis='y',which='major',labelsize=12)
