@@ -124,6 +124,10 @@ x55Dcrit = [7.86e-9,1.09e-8,6.02e-9,9.84e-9,7.08e-9,6.08e-9,6.01e-9,7.17e-9]
 MsiMdust = [.469,.312,.625,.293,.648,.519,.637,.486]
 stdsihcrit = np.log10(stdDcrit)+np.log10(4./(3*28.1))+np.log10(MsiMdust)+12-7.51
 x55sihcrit = np.log10(x55Dcrit)+np.log10(4./(3*28.1))+np.log10(MsiMdust)+12-7.51
+print stdsihcrit
+print stdsihcrit.min(), stdsihcrit.max()
+print x55sihcrit
+print x55sihcrit.min(), x55sihcrit.max()
 for stdsih in stdsihcrit:
     ax.plot([-6.0,-3.0],[stdsih,stdsih],'g--')
 for x55sih in x55sihcrit:
