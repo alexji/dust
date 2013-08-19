@@ -159,6 +159,24 @@ if __name__ == "__main__":
                       mgsio3_klambda,
                       fe2sio4_klambda]
 
+        ### If made some AC dust from unmixed C: CD10 caveat for dust models 1 and 2
+        farr = get_mass_fractions(mixed=False,depleted=True,mass=20,carbon=True)
+        klambdaACUMD20 = np.zeros(ac_klambda.shape)
+        SgeomACUMD20 = 0.0
+        for i in xrange(len(farr)):
+            klambdaACUMD20 = klambdaACUMD20 + farr[i] * klambdaarr[i]
+            SgeomACUMD20 = SgeomACUMD20 + farr[i] * Sgeomarr[i]
+        np.save("DATA/"+prefix+"AC-UM-D-20_klambda.npy",(klambdaACUMD20,SgeomACUMD20))
+    
+        farr = get_mass_fractions(mixed=False,depleted=False,mass=20,carbon=True)
+        klambdaACUMND20 = np.zeros(ac_klambda.shape)
+        SgeomACUMND20 = 0.0
+        for i in xrange(len(farr)):
+            klambdaACUMND20 = klambdaACUMND20 + farr[i] * klambdaarr[i]
+            SgeomACUMND20 = SgeomACUMND20 + farr[i] * Sgeomarr[i]
+        np.save("DATA/"+prefix+"AC-UM-ND-20_klambda.npy",(klambdaACUMND20,SgeomACUMND20))
+        ### End AC dust
+
         farr = get_mass_fractions(mixed=False,depleted=True,mass=20)
         klambdaUMD20 = np.zeros(ac_klambda.shape)
         SgeomUMD20 = 0.0
@@ -273,6 +291,8 @@ if __name__ == "__main__":
             prefix="x5.5_"
         elif SHOCK75:
             prefix="x7.5_"
+        klambdaACUMD20,SgeomACUMD20 = np.load("DATA/"+prefix+"AC-UM-D-20_klambda.npy")
+        klambdaACUMND20,SgeomACUMND20= np.load("DATA/"+prefix+"AC-UM-ND-20_klambda.npy")
         klambdaUMD20,SgeomUMD20 = np.load("DATA/"+prefix+"UM-D-20_klambda.npy")
         klambdaUMND20,SgeomUMND20= np.load("DATA/"+prefix+"UM-ND-20_klambda.npy")
         klambdaUMD170,SgeomUMD170 = np.load("DATA/"+prefix+"UM-D-170_klambda.npy")
@@ -403,6 +423,8 @@ if __name__ == "__main__":
         plt.plot(wavelen,klambdaSOIFCCSN,'m:')
         plt.plot(wavelen,klambdaCaff20,'k-.')
         plt.plot(wavelen,klambdaCaff35,'k--')
+        plt.plot(wavelen,klambdaACUMD20,'b:')
+        plt.plot(wavelen,klambdaACUMND20,'g:')
         plt.gca().loglog()
         plt.xlim((10**-1,10**3))
         plt.ylim((10**-3,10**6))
@@ -425,6 +447,8 @@ if __name__ == "__main__":
     if MAKEPLOTS_KAPPAPLANCK:
         plt.clf()
         Tarr = 10**np.linspace(1,4,150)
+        kPlanckACUMD20_arr = np.zeros(len(Tarr))
+        kPlanckACUMND20_arr= np.zeros(len(Tarr))
         kPlanckUMD20_arr = np.zeros(len(Tarr))
         kPlanckUMND20_arr= np.zeros(len(Tarr))
         kPlanckUMD170_arr = np.zeros(len(Tarr))
@@ -438,6 +462,8 @@ if __name__ == "__main__":
         kPlanckCaff20_arr= np.zeros(len(Tarr))
         kPlanckCaff35_arr= np.zeros(len(Tarr))
         for i,T in enumerate(Tarr):
+            kPlanckACUMD20_arr[i] = kappaPlanck(T, wavelen_cm, klambdaACUMD20)
+            kPlanckACUMND20_arr[i]= kappaPlanck(T, wavelen_cm, klambdaACUMND20)
             kPlanckUMD20_arr[i] = kappaPlanck(T, wavelen_cm, klambdaUMD20)
             kPlanckUMND20_arr[i]= kappaPlanck(T, wavelen_cm, klambdaUMND20)
             kPlanckUMD170_arr[i] = kappaPlanck(T, wavelen_cm, klambdaUMD170)
@@ -460,6 +486,8 @@ if __name__ == "__main__":
         plt.plot(Tarr,kPlanckCaff35_arr,'k--')
         plt.plot([1500,1500],[.1,10**4],'k--')
         plt.plot([2000,2000],[.1,10**4],'k--')
+        plt.plot(Tarr,kPlanckACUMD20_arr,'b:')
+        plt.plot(Tarr,kPlanckACUMND20_arr,'g:')
         plt.ylim((.1,10**4))
         plt.xlabel(r'$T_{dust}$')
         plt.ylabel(r'$\kappa_P$')

@@ -90,9 +90,9 @@ def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     elif dustmodel[0:5]=="x5.5_":
         plt.gca().text(14,1.6,"shock",fontsize=16)
     if dust_opacity:
-        plt.savefig("PLOTS/paper_"+dustmodel+"_Dcritplane_dustopacity.pdf",bbox_inches='tight')
+        plt.savefig("PLOTS/paper_"+dustmodel+"_Dcritplane_dustopacity.eps",bbox_inches='tight')
     else:
-        plt.savefig("PLOTS/paper_"+dustmodel+"_Dcritplane.pdf",bbox_inches='tight')
+        plt.savefig("PLOTS/paper_"+dustmodel+"_Dcritplane.eps",bbox_inches='tight')
 
     fig = plt.figure(figsize=(8.5,7.5))
     plt.imshow(Td.transpose(),extent=(0,20,1.5,3.5),origin='lower',aspect=8.0)
@@ -112,9 +112,9 @@ def plot_ntplane(dustmodel,dust_opacity=False,make_colorbar=True):
     plt.ylim((1.7,3.5))
 
     if dust_opacity:
-        plt.savefig("PLOTS/paper_"+dustmodel+"_Tdplane_dustopacity.pdf",bbox_inches='tight')
+        plt.savefig("PLOTS/paper_"+dustmodel+"_Tdplane_dustopacity.eps",bbox_inches='tight')
     else:
-        plt.savefig("PLOTS/paper_"+dustmodel+"_Tdplane.pdf",bbox_inches='tight')
+        plt.savefig("PLOTS/paper_"+dustmodel+"_Tdplane.eps",bbox_inches='tight')
 
 if __name__ == "__main__":
     """

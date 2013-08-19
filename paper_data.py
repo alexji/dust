@@ -119,9 +119,13 @@ def plot_data_dtranssih():
 plt.clf()
 fig,ax = plot_data_sife()
 # plot [Si/H]crit lines
-stdDcrit = [4.52e-8,5.28e-8,3.87e-8,5.49e-8,4.33e-8,3.88e-8,3.87e-8,4.46e-8]
-x55Dcrit = [7.86e-9,1.09e-8,6.02e-9,9.84e-9,7.08e-9,6.08e-9,6.01e-9,7.17e-9]
-MsiMdust = [.469,.312,.625,.293,.648,.519,.637,.486]
+#stdDcrit = [4.52e-8,5.28e-8,3.87e-8,5.49e-8,4.33e-8,3.88e-8,3.87e-8,4.46e-8]
+#x55Dcrit = [7.86e-9,1.09e-8,6.02e-9,9.84e-9,7.08e-9,6.08e-9,6.01e-9,7.17e-9]
+#MsiMdust = [.469,.312,.625,.293,.648,.519,.637,.486]
+## Added AC UMND20 and AC UMD20 at the end
+stdDcrit = [4.52e-8,5.28e-8,3.87e-8,5.49e-8,4.33e-8,3.88e-8,3.87e-8,4.46e-8,4.16e-8,4.84e-8]
+x55Dcrit = [7.86e-9,1.09e-8,6.02e-9,9.84e-9,7.08e-9,6.08e-9,6.01e-9,7.17e-9,6.25e-9,7.62e-9]
+MsiMdust = [.469,.312,.625,.293,.648,.519,.637,.486,0.411,0.285]
 stdsihcrit = np.log10(stdDcrit)+np.log10(4./(3*28.1))+np.log10(MsiMdust)+12-7.51
 x55sihcrit = np.log10(x55Dcrit)+np.log10(4./(3*28.1))+np.log10(MsiMdust)+12-7.51
 print stdsihcrit
@@ -137,7 +141,7 @@ ax.plot([-6.0,-3.0],[-6.0,-3.0],'k-',lw=.1)
 
 ax.set_xlim(-6.0,-3.0)
 ax.set_ylim(-6.0,-2.0)
-plt.savefig("PLOTS/paper_sih.pdf",bbox_inches='tight')
+plt.savefig("PLOTS/paper_sih.eps",bbox_inches='tight')
 
 plt.clf()
 fig,ax = plot_data_dtranssih()
@@ -167,4 +171,4 @@ ax.text(-4.0,-3.8,"fine structure cooling fails",color='black',fontsize=16,
 
 ax.set_xlim(-6.0,-2.0)
 ax.set_ylim(-4.0,0.0)
-plt.savefig("PLOTS/paper_dtranssih.pdf",bbox_inches='tight')
+plt.savefig("PLOTS/paper_dtranssih.eps",bbox_inches='tight')

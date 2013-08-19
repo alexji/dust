@@ -11,21 +11,21 @@ def get_wavelen():
 
 def get_densities():
     ## densities in g/cm**3
-    ac_rho     = 2.0 ##Estimated from Wikipedia
-    al2o3_rho  = 4.0 ##Estimated from Wikipedia
-    asi_rho    = 2.33##http://www.mit.edu/~6.777/matprops/asi.htm
+    ac_rho     = 2.0 ##Estimated from Wikipedia #HOIC 2.25 graphite
+    al2o3_rho  = 4.0 ##Estimated from Wikipedia #HOIC 3.965
+    asi_rho    = 2.33##http://www.mit.edu/~6.777/matprops/asi.htm #HOIC 2.33-2.53
     fe_rho     = 7.87##Semenov et al
     fes_rho    = 4.83##Semenov et al
     mg2sio4_rho= 3.59##Semenov et al
-    mg_rho     = 1.6 ##Estimated from Wikipedia
-    mgo_rho    = 3.58##Estimated from Wikipedia
-    sio2_rho   = 2.6 ##Estimated from Wikipedia
-    fe3o4_rho  = 5.17##Estimated from Wikipedia
+    mg_rho     = 1.6 ##Estimated from Wikipedia #HOIC 1.57-1.74
+    mgo_rho    = 3.58##Estimated from Wikipedia #HOIC 3.58
+    sio2_rho   = 2.6 ##Estimated from Wikipedia #HOIC 2.53-2.65 quartz (amorphous slightly lower, but impure)
+    fe3o4_rho  = 5.17##Estimated from Wikipedia #HOIC 5.17
     mgsio3_rho = 3.20##Semenov et al
     fe2sio4_rho= 4.39##http://webmineral.com/data/Fayalite.shtml and wikipedia
     return ac_rho, al2o3_rho, asi_rho, fe_rho, fes_rho, mg2sio4_rho, mg_rho, mgo_rho, sio2_rho, fe3o4_rho, mgsio3_rho, fe2sio4_rho
 
-def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False):
+def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False,carbon=False):
     if (caffau and mass==35):
         ## Caff35
         ## SDSS J102915 Schneider+12
@@ -58,7 +58,10 @@ def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False):
         fe2sio4_M= 0.0
     elif (not mixed and not depleted and mass==20):
         ## UM ND M20
-        ac_M     = 1.3e-13
+        if carbon:
+            ac_M     = .0145
+        else:
+            ac_M     = 1.3e-13
         al2o3_M  = 0.000086
         asi_M    = 0.030
         fe_M     = 0.000046
@@ -72,7 +75,10 @@ def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False):
         fe2sio4_M= 0.0
     elif (not mixed and depleted and mass==20):
         ## UM D M20
-        ac_M     = 1.3e-13
+        if carbon:
+            ac_M     = .0145
+        else:
+            ac_M     = 1.3e-13
         al2o3_M  = 0.000086
         asi_M    = 0.030
         fe_M     = 0.000046

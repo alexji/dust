@@ -84,6 +84,6 @@ if __name__ == "__main__":
         if prefix=="x5.5_":
             plt.text(13,4000,"shock",fontsize=20)
 
-        plt.savefig("PLOTS/paper_"+prefix+"kPlanck.pdf",bbox_inches='tight')
+        plt.savefig("PLOTS/paper_"+prefix+"kPlanck.eps",bbox_inches='tight')
     makeplot("std_")
     makeplot("x5.5_")

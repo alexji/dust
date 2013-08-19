@@ -53,4 +53,4 @@ if __name__ == "__main__":
     plt.gca().tick_params(axis='both',which='major',labelsize=16)
     plt.legend(linelist, ['T='+str(x)+'K' for x in Tarr],loc="upper left",prop={'size':18},frameon=False)
     #plt.gcf().set_size_inches(6,12)
-    plt.savefig("PLOTS/paper_optthickthin.pdf",bbox_inches="tight")
+    plt.savefig("PLOTS/paper_optthickthin.eps",bbox_inches="tight")

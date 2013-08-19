@@ -34,7 +34,8 @@ if __name__ == "__main__":
 ##     dustmodels = ['UM-D-20','UM-ND-20','UM-D-170','UM-ND-170',
 ##                   'M-D-20', 'M-ND-20', 'M-D-170', 'M-ND-170']
     dustmodels = ['UM-ND-20','UM-D-20','M-ND-20', 'M-D-20',
-                  'UM-ND-170','UM-D-170','M-ND-170', 'M-D-170']
+                  'UM-ND-170','UM-D-170','M-ND-170', 'M-D-170',
+                  'AC-UM-ND-20','AC-UM-D-20']
                   #'SOIF06-PISN','SOIF06-CCSN',
                   #'Caff20','Caff35']
     stdmodels = ['std_'+x for x in dustmodels]
