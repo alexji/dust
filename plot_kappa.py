@@ -241,7 +241,7 @@ if __name__ == "__main__":
             SgeomMND170 = SgeomMND170 + farr[i] * Sgeomarr[i]
         np.save("DATA/"+prefix+"M-ND-170_klambda.npy",(klambdaMND170,SgeomMND170))
     
-        farr = get_mass_fractions(caffau=True,mass=20)
+        farr = get_mass_fractions(caffau=True,mass=20,carbon=True)
         klambdaCaff20 = np.zeros(ac_klambda.shape)
         SgeomCaff20 = 0.0
         for i in xrange(len(farr)):
@@ -249,13 +249,29 @@ if __name__ == "__main__":
             SgeomCaff20 = SgeomCaff20 + farr[i] * Sgeomarr[i]
         np.save("DATA/"+prefix+"Caff20_klambda.npy",(klambdaCaff20,SgeomCaff20))
     
-        farr = get_mass_fractions(caffau=True,mass=35)
+        farr = get_mass_fractions(caffau=True,mass=35,carbon=True)
         klambdaCaff35 = np.zeros(ac_klambda.shape)
         SgeomCaff35 = 0.0
         for i in xrange(len(farr)):
             klambdaCaff35 = klambdaCaff35 + farr[i] * klambdaarr[i]
             SgeomCaff35 = SgeomCaff35 + farr[i] * Sgeomarr[i]
         np.save("DATA/"+prefix+"Caff35_klambda.npy",(klambdaCaff35,SgeomCaff35))
+    
+        farr = get_mass_fractions(caffau=True,mass=20,carbon=False)
+        klambdaNoCCaff20 = np.zeros(ac_klambda.shape)
+        SgeomNoCCaff20 = 0.0
+        for i in xrange(len(farr)):
+            klambdaNoCCaff20 = klambdaNoCCaff20 + farr[i] * klambdaarr[i]
+            SgeomNoCCaff20 = SgeomNoCCaff20 + farr[i] * Sgeomarr[i]
+        np.save("DATA/"+prefix+"NoC_Caff20_klambda.npy",(klambdaNoCCaff20,SgeomNoCCaff20))
+    
+        farr = get_mass_fractions(caffau=True,mass=35,carbon=False)
+        klambdaNoCCaff35 = np.zeros(ac_klambda.shape)
+        SgeomNoCCaff35 = 0.0
+        for i in xrange(len(farr)):
+            klambdaNoCCaff35 = klambdaNoCCaff35 + farr[i] * klambdaarr[i]
+            SgeomNoCCaff35 = SgeomNoCCaff35 + farr[i] * Sgeomarr[i]
+        np.save("DATA/"+prefix+"NoC_Caff35_klambda.npy",(klambdaNoCCaff35,SgeomNoCCaff35))
     
         klambdaSOIFPISN = .0641   * ac_klambda + \
                           .000582 * al2o3_klambda + \
@@ -305,6 +321,8 @@ if __name__ == "__main__":
         klambdaSOIFCCSN,SgeomSOIFCCSN= np.load("DATA/"+prefix+"SOIF06-CCSN_klambda.npy")
         klambdaCaff20,SgeomCaff20 = np.load("DATA/"+prefix+"Caff20_klambda.npy")
         klambdaCaff35,SgeomCaff35 = np.load("DATA/"+prefix+"Caff35_klambda.npy")
+        klambdaNoCCaff20,SgeomNoCCaff20 = np.load("DATA/"+prefix+"NoC_Caff20_klambda.npy")
+        klambdaNoCCaff35,SgeomNoCCaff35 = np.load("DATA/"+prefix+"NoC_Caff35_klambda.npy")
 
     if MAKEPLOTS_KAPPALAMBDA:
         plt.subplot(7,2,1)
@@ -461,6 +479,8 @@ if __name__ == "__main__":
         kPlanckSOIFCCSN_arr= np.zeros(len(Tarr))
         kPlanckCaff20_arr= np.zeros(len(Tarr))
         kPlanckCaff35_arr= np.zeros(len(Tarr))
+        kPlanckNoCCaff20_arr= np.zeros(len(Tarr))
+        kPlanckNoCCaff35_arr= np.zeros(len(Tarr))
         for i,T in enumerate(Tarr):
             kPlanckACUMD20_arr[i] = kappaPlanck(T, wavelen_cm, klambdaACUMD20)
             kPlanckACUMND20_arr[i]= kappaPlanck(T, wavelen_cm, klambdaACUMND20)
@@ -476,14 +496,18 @@ if __name__ == "__main__":
             kPlanckSOIFCCSN_arr[i] = kappaPlanck(T, wavelen_cm, klambdaSOIFCCSN)
             kPlanckCaff20_arr[i] = kappaPlanck(T, wavelen_cm, klambdaCaff20)
             kPlanckCaff35_arr[i] = kappaPlanck(T, wavelen_cm, klambdaCaff35)
+            kPlanckNoCCaff20_arr[i] = kappaPlanck(T, wavelen_cm, klambdaNoCCaff20)
+            kPlanckNoCCaff35_arr[i] = kappaPlanck(T, wavelen_cm, klambdaNoCCaff35)
 
         plt.plot(Tarr,kPlanckUMD20_arr)
         plt.plot(Tarr,kPlanckUMND20_arr)
         plt.plot(Tarr,kPlanckMD20_arr)
         plt.plot(Tarr,kPlanckMND20_arr)
         plt.plot(Tarr,kPlanckSOIFCCSN_arr,'m:')
-        plt.plot(Tarr,kPlanckCaff20_arr,'k-.')
+        plt.plot(Tarr,kPlanckCaff20_arr,'k--')
         plt.plot(Tarr,kPlanckCaff35_arr,'k--')
+        plt.plot(Tarr,kPlanckNoCCaff20_arr,'k:')
+        plt.plot(Tarr,kPlanckNoCCaff35_arr,'k:')
         plt.plot([1500,1500],[.1,10**4],'k--')
         plt.plot([2000,2000],[.1,10**4],'k--')
         plt.plot(Tarr,kPlanckACUMD20_arr,'b:')

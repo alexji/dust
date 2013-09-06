@@ -31,13 +31,14 @@ def calc_model(heating,dustmodel,verbose=False):
 
 if __name__ == "__main__":
     #wavelen, logwavelen = get_wavelen()
-    dustmodels = ['UM-D-20','UM-ND-20','UM-D-170','UM-ND-170',
-                  'M-D-20', 'M-ND-20', 'M-D-170', 'M-ND-170']
-#    dustmodels = ['UM-ND-20','UM-D-20','M-ND-20', 'M-D-20',
-#                  'UM-ND-170','UM-D-170','M-ND-170', 'M-D-170',
-#                  'AC-UM-ND-20','AC-UM-D-20']
-                  #'SOIF06-PISN','SOIF06-CCSN',
-                  #'Caff20','Caff35']
+#    dustmodels = ['UM-D-20','UM-ND-20','UM-D-170','UM-ND-170',
+#                  'M-D-20', 'M-ND-20', 'M-D-170', 'M-ND-170']
+    dustmodels = ['UM-ND-20','UM-D-20','M-ND-20', 'M-D-20',
+                  'UM-ND-170','UM-D-170','M-ND-170', 'M-D-170']
+                  #'NoC_Caff20','NoC_Caff35',
+                  #'Caff20','Caff35',
+                  #'AC-UM-ND-20','AC-UM-D-20',
+                  #'SOIF06-PISN','SOIF06-CCSN']
     stdmodels = ['std_'+x for x in dustmodels]
     x55models = ['x5.5_'+x for x in dustmodels]
 

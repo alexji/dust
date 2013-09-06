@@ -29,7 +29,10 @@ def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False,carbon=Fa
     if (caffau and mass==35):
         ## Caff35
         ## SDSS J102915 Schneider+12
-        ac_M     = 0.022
+        if carbon:
+            ac_M     = 0.022
+        else:
+            ac_M     = 0
         al2o3_M  = 0.007
         asi_M    = 0.0
         fe_M     = 0.0
@@ -44,7 +47,10 @@ def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False,carbon=Fa
     elif (caffau and mass==20):
         ## Caff20
         ## SDSS J102915 Schneider+12
-        ac_M     = 0.003
+        if carbon:
+            ac_M     = 0.003
+        else:
+            ac_M     = 0
         al2o3_M  = 0.006
         asi_M    = 0.0
         fe_M     = 0.0
