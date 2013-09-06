@@ -78,10 +78,14 @@ if __name__ == "__main__":
     std_Dc = np.log10(std_Dc)
     x55_Dc = np.log10(x55_Dc)
 
-    fig = plt.figure(1,figsize=(5,10))
+    MsiMdust = [.469,.312,.625,.293,.648,.519,.637,.486]
+    std_sicrit = std_Dc+np.log10(4./(3*28.1))+np.log10(MsiMdust)+12-7.51
+    x55_sicrit = x55_Dc+np.log10(4./(3*28.1))+np.log10(MsiMdust)+12-7.51
+
+    fig = plt.figure(1,figsize=(5,12.5))
     fig.subplots_adjust(bottom=.25,wspace=0,hspace=.12)
 
-    ax  = fig.add_subplot(411)
+    ax  = fig.add_subplot(511)
     ax.plot(ind,x55_Td,'s-',color='r',alpha=0.6,mec='r')
     ax.plot(ind,std_Td,'D-',color='g',alpha=0.6,mec='g',mfc='None',mew=1.2)
     plt.ylabel(r'$T_d$ [K]',fontsize=14)
@@ -89,7 +93,7 @@ if __name__ == "__main__":
     ax.set_xlim((ind[0]-.5,ind[N-1]+.5))
     plt.yticks((300,400,500,600,700))
 
-    ax = fig.add_subplot(412)
+    ax = fig.add_subplot(512)
     ax.plot(ind,x55_kP,'s-',color='r',alpha=0.6,mec='r')
     ax.plot(ind,std_kP,'D-',color='g',alpha=0.6,mec='g',mfc='None',mew=1.2)
     plt.ylabel(r'$\log_{10}{\kappa_P}$ [cm$^2$/g]',fontsize=14)
@@ -98,7 +102,7 @@ if __name__ == "__main__":
     ax.set_xlim((ind[0]-.5,ind[N-1]+.5))
     ax.legend(('shock','standard'),prop={'size':14},frameon=False,loc="lower right")
 
-    ax = fig.add_subplot(413)
+    ax = fig.add_subplot(513)
     ax.plot(ind,x55_S,'s-',color='r',alpha=0.6,mec='r')
     ax.plot(ind,std_S,'D-',color='g',alpha=0.6,mec='g',mfc='None',mew=1.2)
     plt.ylabel(r'$\log_{10}{S}$ [cm$^2$/g]',fontsize=14)
@@ -106,13 +110,23 @@ if __name__ == "__main__":
     ax.set_xlim((ind[0]-.5,ind[N-1]+.5))
     plt.yticks((4.5,5.0,5.5,6.0))
 
-    ax = fig.add_subplot(414)
+    ax = fig.add_subplot(514)
     ax.plot(ind,x55_Dc,'s-',color='r',alpha=0.6,mec='r')
     ax.plot(ind,std_Dc,'D-',color='g',alpha=0.6,mec='g',mfc='None',mew=1.2)
     plt.plot([-1,N+1],[-8.357,-8.357],'k:')
     plt.ylabel(r'$\log_{10}{\mathcal{D}_{crit}}$',fontsize=14)
     #ax.set_ylim((-8.5,-7))
     plt.yticks((-7.0,-7.5,-8.0,-8.5))
+    ax.set_xticklabels(tuple(['' for x in np.arange(len(dustmodels))]))
+    ax.set_xlim((ind[0]-.5,ind[N-1]+.5))
+    #plt.xlabel(r'Dust Model Number')
+
+    ax = fig.add_subplot(515)
+    ax.plot(ind,x55_sicrit,'s-',color='r',alpha=0.6,mec='r')
+    ax.plot(ind,std_sicrit,'D-',color='g',alpha=0.6,mec='g',mfc='None',mew=1.2)
+    plt.ylabel(r'[Si/H]$_{crit}$',fontsize=14)
+    #ax.set_ylim((-8.5,-7))
+    plt.yticks((-4.0,-4.5,-5.0,-5.5))
     ax.set_xlim((ind[0]-.5,ind[N-1]+.5))
     #ax.invert_yaxis()
     plt.xlabel(r'Dust Model Number')
