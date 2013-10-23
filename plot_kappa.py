@@ -7,8 +7,8 @@ from dust_calculations import kappaPlanck, Sgeometric
 if __name__ == "__main__":
     RECALC_KAPPALAMBDA = False
     RECALC_DUSTMODELS = True
-    MAKEPLOTS_KAPPALAMBDA = True
-    MAKEPLOTS_KAPPAPLANCK = True
+    MAKEPLOTS_KAPPALAMBDA = False
+    MAKEPLOTS_KAPPAPLANCK = False
     # Pick ONE of these
     STANDARD = True
     SHOCK35  = False
@@ -158,6 +158,73 @@ if __name__ == "__main__":
                       fe3o4_klambda,
                       mgsio3_klambda,
                       fe2sio4_klambda]
+
+        ### Adding carbon dust by mass ratios
+        for carbfrac in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]:
+            farr = get_mass_fractions(mixed=False,depleted=True,mass=20,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-UM-D-20_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=False,depleted=False,mass=20,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-UM-ND-20_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=False,depleted=True,mass=170,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-UM-D-170_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=False,depleted=False,mass=170,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-UM-ND-170_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=True,depleted=True,mass=20,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-M-D-20_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=True,depleted=False,mass=20,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-M-ND-20_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=True,depleted=True,mass=170,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-M-D-170_klambda.npy",(klambda,Sgeom))
+
+            farr = get_mass_fractions(mixed=True,depleted=False,mass=170,carbfrac=carbfrac)
+            klambda = np.zeros(ac_klambda.shape)
+            Sgeom = 0.0
+            for i in xrange(len(farr)):
+                klambda = klambda + farr[i] * klambdaarr[i]
+                Sgeom = Sgeom + farr[i] * Sgeomarr[i]
+            np.save("DATA/"+prefix+"carbfrac"+str(carbfrac)+"-M-ND-170_klambda.npy",(klambda,Sgeom))
+        ### End carbon dust by mass ratios
 
         ### If made some AC dust from unmixed C: CD10 caveat for dust models 1 and 2
         farr = get_mass_fractions(mixed=False,depleted=True,mass=20,carbon=True)

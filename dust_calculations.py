@@ -25,7 +25,7 @@ def get_densities():
     fe2sio4_rho= 4.39##http://webmineral.com/data/Fayalite.shtml and wikipedia
     return ac_rho, al2o3_rho, asi_rho, fe_rho, fes_rho, mg2sio4_rho, mg_rho, mgo_rho, sio2_rho, fe3o4_rho, mgsio3_rho, fe2sio4_rho
 
-def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False,carbon=False):
+def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False,carbon=False,carbfrac=None):
     if (caffau and mass==35):
         ## Caff35
         ## SDSS J102915 Schneider+12
@@ -181,8 +181,16 @@ def get_mass_fractions(mixed=False,depleted=False,mass=20,caffau=False,carbon=Fa
         mgsio3_M = 0.0
         fe2sio4_M= 6.6
 
-    total_M = ac_M+al2o3_M+asi_M+fe_M+fes_M+mg2sio4_M+mg_M+mgo_M+sio2_M+fe3o4_M+mgsio3_M+fe2sio4_M
-    return (ac_M/total_M,al2o3_M/total_M,asi_M/total_M,fe_M/total_M,fes_M/total_M,mg2sio4_M/total_M,mg_M/total_M,mgo_M/total_M,sio2_M/total_M,fe3o4_M/total_M,mgsio3_M/total_M,fe2sio4_M/total_M)
+    if (carbfrac==None):
+        total_M = ac_M+al2o3_M+asi_M+fe_M+fes_M+mg2sio4_M+mg_M+mgo_M+sio2_M+fe3o4_M+mgsio3_M+fe2sio4_M
+        return (ac_M/total_M,al2o3_M/total_M,asi_M/total_M,fe_M/total_M,fes_M/total_M,mg2sio4_M/total_M,mg_M/total_M,mgo_M/total_M,sio2_M/total_M,fe3o4_M/total_M,mgsio3_M/total_M,fe2sio4_M/total_M)
+    else: # don't add carbon mass from model, instead put it in artificially to a fixed level
+        total_M = al2o3_M+asi_M+fe_M+fes_M+mg2sio4_M+mg_M+mgo_M+sio2_M+fe3o4_M+mgsio3_M+fe2sio4_M
+        # ratios sums to 1 without carbon
+        ratios = (0,al2o3_M/total_M,asi_M/total_M,fe_M/total_M,fes_M/total_M,mg2sio4_M/total_M,mg_M/total_M,mgo_M/total_M,sio2_M/total_M,fe3o4_M/total_M,mgsio3_M/total_M,fe2sio4_M/total_M)
+        ratios = np.array(ratios)*(1-carbfrac) # ratios sums to 1 - carbfrac
+        ratios[0] = carbfrac #ratios sums to 1
+        return tuple(ratios)
 
 def Blambda(wavelen, T):
     """
